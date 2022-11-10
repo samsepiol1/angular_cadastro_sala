@@ -10,32 +10,32 @@ import { HttpProviderService } from '../service/http-provider.service';
   styleUrls: ['./edit-employee.component.scss']
 })
 export class EditEmployeeComponent implements OnInit {
-  editEmployeeForm: employeeForm = new employeeForm();
+  editEmployeeForm: EmployeeForm = new EmployeeForm();
 
-  @ViewChild("employeeForm")
-  employeeForm!: NgForm;
+  @ViewChild("EmployeeForm")
+  EmployeeForm!: NgForm;
 
   isSubmitted: boolean = false;
-  employeeId: any;
+  EmployeeId: any;
 
   constructor(private toastr: ToastrService, private route: ActivatedRoute, private router: Router,
     private httpProvider: HttpProviderService) { }
 
   ngOnInit(): void {
-    this.employeeId = this.route.snapshot.params['employeeId'];
+    this.EmployeeId = this.route.snapshot.params['EmployeeId'];
     this.getEmployeeDetailById();
   }
 
   getEmployeeDetailById() {
-    this.httpProvider.getEmployeeDetailById(this.employeeId).subscribe((data: any) => {
+    this.httpProvider.getEmployeeDetailById(this.EmployeeId).subscribe((data: any) => {
       if (data != null && data.body != null) {
         var resultData = data.body;
         if (resultData) {
           this.editEmployeeForm.Id = resultData.id;
-          this.editEmployeeForm.FirstName = resultData.firstName;
-          this.editEmployeeForm.LastName = resultData.lastName;
+          this.editEmployeeForm.PlaceName = resultData.PlaceName;
+          this.editEmployeeForm.MedicalEspec = resultData.MedicalEspec;
           this.editEmployeeForm.Email = resultData.email;
-          this.editEmployeeForm.Address = resultData.address;
+          this.editEmployeeForm.Desc = resultData.Desc;
           this.editEmployeeForm.Phone = resultData.phone;
         }
       }
@@ -69,11 +69,11 @@ export class EditEmployeeComponent implements OnInit {
   }
 }
 
-export class employeeForm {
+export class EmployeeForm {
   Id: number = 0;
-  FirstName: string = "";
-  LastName: string = "";
+  PlaceName: string = "";
+  MedicalEspec: string = "";
   Email: string = "";
-  Address: string = "";
+  Desc: string = "";
   Phone: string = "";
 }

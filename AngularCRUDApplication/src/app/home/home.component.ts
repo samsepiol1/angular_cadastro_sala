@@ -37,7 +37,7 @@ const MODALS: { [name: string]: Type<any> } = {
 })
 export class HomeComponent implements OnInit {
   closeResult = '';
-  employeeList: any = [];
+  EmployeeList: any = [];
   constructor(private router: Router, private modalService: NgbModal,
     private toastr: ToastrService, private httpProvider : HttpProviderService) { }
 
@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
       if (data != null && data.body != null) {
         var resultData = data.body;
         if (resultData) {
-          this.employeeList = resultData;
+          this.EmployeeList = resultData;
         }
       }
     },
@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
         if (error) {
           if (error.status == 404) {
             if(error.error && error.error.message){
-              this.employeeList = [];
+              this.EmployeeList = [];
             }
           }
         }
@@ -69,18 +69,18 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['AddEmployee']);
   }
 
-  deleteEmployeeConfirmation(employee: any) {
+  deleteEmployeeConfirmation(Employee: any) {
     this.modalService.open(MODALS['deleteModal'],
       {
         ariaLabelledBy: 'modal-basic-title'
       }).result.then((result) => {
-        this.deleteEmployee(employee);
+        this.deleteEmployee(Employee);
       },
         (reason) => {});
   }
 
-  deleteEmployee(employee: any) {
-    this.httpProvider.deleteEmployeeById(employee.id).subscribe((data : any) => {
+  deleteEmployee(Employee: any) {
+    this.httpProvider.deleteEmployeeById(Employee.id).subscribe((data : any) => {
       if (data != null && data.body != null) {
         var resultData = data.body;
         if (resultData != null && resultData.isSuccess) {

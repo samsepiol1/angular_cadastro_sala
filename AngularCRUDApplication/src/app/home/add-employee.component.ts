@@ -10,12 +10,12 @@ import { HttpProviderService } from '../service/http-provider.service';
   styleUrls: ['./add-employee.component.scss']
 })
 export class AddEmployeeComponent implements OnInit {
-  addEmployeeForm: EmployeeForm = new EmployeeForm();
+  addEmployeeForm: employeeForm = new employeeForm();
 
-  @ViewChild("EmployeeForm")
-  EmployeeForm!: NgForm;
+  @ViewChild("employeeForm")
+  employeeForm!: NgForm;
 
-  isSubmitted: boolean = false;
+  isPlaceNameted: boolean = false;
 
   constructor(private router: Router, private httpProvider: HttpProviderService, private toastr: ToastrService) { }
 
@@ -23,16 +23,15 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   AddEmployee(isValid: any) {
-    this.isSubmitted = true;
+    this.isPlaceNameted = true;
     if (isValid) {
-      debugger;
-      alert("Dados Enviados para o Servidor")
       this.httpProvider.saveEmployee(this.addEmployeeForm).subscribe(async data => {
         if (data != null && data.body != null) {
           if (data != null && data.body != null) {
             var resultData = data.body;
             if (resultData != null && resultData.isSuccess) {
               this.toastr.success(resultData.message);
+              alert("Dados Enviados para o Servidor")
               setTimeout(() => {
                 this.router.navigate(['/Home']);
               }, 500);
@@ -51,8 +50,7 @@ export class AddEmployeeComponent implements OnInit {
 
 }
 
-export class EmployeeForm {
+export class employeeForm {
   PlaceName: string = "";
   MedicalEspec: string = "";
-  
 }

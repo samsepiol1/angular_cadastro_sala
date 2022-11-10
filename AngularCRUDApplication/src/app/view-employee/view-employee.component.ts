@@ -4,28 +4,28 @@ import { HttpProviderService } from '../service/http-provider.service';
 import { WebApiService } from '../service/web-api.service';
 
 @Component({
-  selector: 'app-view-employee',
-  templateUrl: './view-employee.component.html',
-  styleUrls: ['./view-employee.component.scss']
+  selector: 'app-view-Employee',
+  templateUrl: './view-Employee.component.html',
+  styleUrls: ['./view-Employee.component.scss']
 })
 export class ViewEmployeeComponent implements OnInit {
 
-  employeeId: any;
-  employeeDetail : any= [];
+  EmployeeId: any;
+  EmployeeDetail : any= [];
    
   constructor(public webApiService: WebApiService, private route: ActivatedRoute, private httpProvider : HttpProviderService) { }
   
   ngOnInit(): void {
-    this.employeeId = this.route.snapshot.params['employeeId'];      
+    this.EmployeeId = this.route.snapshot.params['EmployeeId'];      
     this.getEmployeeDetailById();
   }
 
   getEmployeeDetailById() {       
-    this.httpProvider.getEmployeeDetailById(this.employeeId).subscribe((data : any) => {      
+    this.httpProvider.getEmployeeDetailById(this.EmployeeId).subscribe((data : any) => {      
       if (data != null && data.body != null) {
         var resultData = data.body;
         if (resultData) {
-          this.employeeDetail = resultData;
+          this.EmployeeDetail = resultData;
         }
       }
     },
